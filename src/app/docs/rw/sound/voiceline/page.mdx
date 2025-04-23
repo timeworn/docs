@@ -1,0 +1,17 @@
+# Voiceline
+
+This endpoint allows you to search for a voiceline.
+
+## Endpoint
+
+- URL: `/rw/v1/sound/voiceline[/:id]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name     | Type     | Description                                                                |
+| -------- | -------- | -------------------------------------------------------------------------- |
+| `fields` | `string` | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset` | `int`    | The amount of voicelines you want to skip.                                 |
+| `limit`  | `int`    | The amount of voicelines to return.                                        |

@@ -1,0 +1,17 @@
+# Sound Effects
+
+This endpoint allows you to search for a sound effect.
+
+## Endpoint
+
+- URL: `/rw/v1/sound/sfx[/:id]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name     | Type     | Description                                                                |
+| -------- | -------- | -------------------------------------------------------------------------- |
+| `fields` | `string` | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset` | `int`    | The amount of sound effects you want to skip.                              |
+| `limit`  | `int`    | The amount of sound effects to return.                                     |

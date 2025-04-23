@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Revived Witch",
+    "description": "Build apps using the Revived Witch API. Serving parsed data from the game Revived Witch, you can retrieve game related data such as items, characters, and more.",
+    "image": "docs/services/rw.webp",
+    "alt": "Revived Witch",
+    "link": "/docs/rw"
+  }
+]

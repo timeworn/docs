@@ -1,0 +1,18 @@
+# Achievements
+
+This endpoint allows you to search for an achievement.
+
+## Endpoint
+
+- URL: `/rw/v1/achievement[/:id]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name     | Type                                      | Description                                                                |
+| -------- | ----------------------------------------- | -------------------------------------------------------------------------- |
+| `group`  | `string` [Social, Progress, Growth, Bond] | The achievement group.                                                     |
+| `fields` | `string`                                  | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset` | `int`                                     | The amount of achievements you want to skip.                               |
+| `limit`  | `int`                                     | The amount of achievements to return.                                      |

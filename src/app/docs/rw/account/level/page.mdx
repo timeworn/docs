@@ -1,0 +1,17 @@
+# Level
+
+This endpoint allows you to search for an account level.
+
+## Endpoint
+
+- URL: `/rw/v1/account/level[/:level]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name     | Type     | Description                                                                |
+| -------- | -------- | -------------------------------------------------------------------------- |
+| `fields` | `string` | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset` | `int`    | The amount of levels you want to skip.                                     |
+| `limit`  | `int`    | The amount of levels to return.                                            |

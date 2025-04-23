@@ -1,0 +1,62 @@
+---
+asIndexPage: true
+title: Introduction
+---
+
+import { Constants } from "@/Constants";
+import { Code } from "nextra/components";
+
+# API Introduction
+
+- Base URL: <Code>{Constants.API_URL}</Code>
+
+Welcome to Timeworn's API documentation. This page will help you understand how to use the API.
+
+## Query
+
+### Query Parameters
+
+```
+/endpoint?query=value&query2=value2
+```
+
+```
+/endpoint?fields=field1,field2
+```
+
+### Query Example
+
+```html copy
+https://api.timeworn.net/rw/v1/character/1
+```
+
+```html copy
+https://api.timeworn.net/rw/v1/character?element=Mercury&fields=id,name
+```
+
+## Rate Limits
+
+The rate limit for the API is **{Constants.API_RATE_LIMIT}** requests per minute. If you exceed this limit, you will receive a `429 Too Many Requests` response.
+
+## Pagination
+
+Requests that return multiple items will be paginated to **{Constants.API_LIMIT_DEFAULT}** items by default. You can specify the amount using `offset` and `limit`. The `limit` parameter has a limit of **{Constants.API_LIMIT_MAX}** (unless stated otherwise) while `offset` has **no limit**.
+
+All requests will return the following:
+
+```js
+{
+    data: [
+        ...
+    ],
+    meta: {
+        limit: ..., // The number of items returned in the response
+        total: ..., // The total number of items available
+        offset:... // The offset used in the request
+    }
+}
+```
+
+## Errors
+
+The API uses the conventional HTTP response codes. In general, `2xx` indicate success, `4xx` indicate an error due to the information provided (e.g., a required parameter was omitted, invalid parameter value, etc.), `5xx` indicate an error with the API server.

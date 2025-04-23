@@ -1,0 +1,18 @@
+# Level
+
+This endpoint allows you to search for a alchemy level.
+
+## Endpoint
+
+- URL: `/rw/v1/alchemy/level[/:level]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name           | Type     | Description                                                                |
+| -------------- | -------- | -------------------------------------------------------------------------- |
+| `alchemystage` | `string` | The alchemy stage of the alchemy levels.                                   |
+| `fields`       | `string` | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset`       | `int`    | The amount of alchemy levels you want to skip.                             |
+| `limit`        | `int`    | The amount of alchemy levels to return.                                    |

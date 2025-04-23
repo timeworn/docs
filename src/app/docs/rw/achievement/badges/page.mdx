@@ -1,0 +1,18 @@
+# Badges
+
+This endpoint allows you to search for a badge.
+
+## Endpoint
+
+- URL: `/rw/v1/achievement/badge[/:id]`
+- Method: `GET`
+- Response: `application/json`
+
+## Query Parameters
+
+| Name     | Type                                                                                                                                                                                                     | Description                                                                |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `group`  | `string` [Recall Dreamland, Bond Together, Monster Hunter, Magic Convergence, Thrive and Flourish, Quest Taker, Magnificent Courtyard, Exploring the Unknown, Ascend Limit, Contact from the Otherworld] | The group of the badges.                                                   |
+| `fields` | `string`                                                                                                                                                                                                 | Restricts the [fields](/docs/api-introduction#query-parameters) to return. |
+| `offset` | `int`                                                                                                                                                                                                    | The amount of badges you want to skip.                                     |
+| `limit`  | `int`                                                                                                                                                                                                    | The amount of badges to return.                                            |
