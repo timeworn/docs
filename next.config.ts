@@ -2,7 +2,15 @@ import type { NextConfig } from "next";
 import nextra from "nextra";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["cdn.timeworn.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.timeworn.net",
+      },
+    ],
+  },
 };
 
 const withNextra = nextra({});
