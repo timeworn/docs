@@ -77,9 +77,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         >
           {children}
         </Layout>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
-        )}
+        <GoogleAnalytics gaId="G-KB75BTYW31" />
       </body>
     </html>
   );
