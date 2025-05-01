@@ -6,8 +6,8 @@ import { ReactNode } from "react";
 import "./globals.css";
 import { Metadata, Viewport } from "next";
 import { Constants } from "@/Constants";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { getImageUrl } from "@/utils/helpers";
+import { Analytics } from "@/components/ui/Third-Parties/Analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(Constants.API_URL),
@@ -16,7 +16,18 @@ export const metadata: Metadata = {
     template: `%s | ${Constants.SITE_NAME}`,
   },
   description: "Create applications using Timeworn's services.",
-  keywords: [Constants.SITE_NAME, "Revived Witch", "Rw", "Revived Witch Api", "Api", "Documentation", "Timeworn", "Timeworn Api", "Timeworn Docs", "Docs"],
+  keywords: [
+    Constants.SITE_NAME,
+    "Revived Witch",
+    "Rw",
+    "Revived Witch Api",
+    "Api",
+    "Documentation",
+    "Timeworn",
+    "Timeworn Api",
+    "Timeworn Docs",
+    "Docs",
+  ],
   applicationName: Constants.SITE_NAME,
   icons: {
     icon: getImageUrl("metadata/favicon.ico"),
@@ -42,11 +53,21 @@ export const viewport: Viewport = {
   themeColor: "#0f172b",
 };
 
-const banner = <Banner storageKey="extremely-secure-key-for-real">Major API and site changes. <Link href="/docs">See here</Link>.</Banner>;
-const navbar = <Navbar className="text-black dark:text-white" logo={<b>Timeworn</b>} />;
+const banner = (
+  <Banner storageKey="extremely-secure-key-for-real">
+    Major API and site changes. <Link href="/docs">See here</Link>.
+  </Banner>
+);
+const navbar = (
+  <Navbar className="text-black dark:text-white" logo={<b>Timeworn</b>} />
+);
 const footer = <Footer>{new Date().getFullYear()} © timeworn.</Footer>;
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const pageMap = await getPageMap();
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
@@ -77,7 +98,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         >
           {children}
         </Layout>
-        <GoogleAnalytics gaId="G-KB75BTYW31" />
+        <Analytics />
       </body>
     </html>
   );
