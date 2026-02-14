@@ -1,34 +1,29 @@
-'use client';
-import type { ComponentProps } from 'react';
-import { Search } from 'lucide-react';
-import { useSearchContext } from 'fumadocs-ui/contexts/search';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
-import { cn } from '../../lib/cn';
-import { type ButtonProps, buttonVariants } from '../ui/button';
+"use client";
+import type { ComponentProps, FC } from "react";
+import { Search } from "lucide-react";
+import { useSearchContext } from "fumadocs-ui/contexts/search";
+import { useI18n } from "fumadocs-ui/contexts/i18n";
+import { cn } from "../../lib/utils";
+import { Button, type ButtonProps, buttonVariants } from "../ui/button";
 
-interface SearchToggleProps extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
+interface SearchToggleProps extends ButtonProps {
   hideIfDisabled?: boolean;
 }
 
-export function SearchToggle({
+export const SearchToggle: FC<SearchToggleProps> = ({
   hideIfDisabled,
-  size = 'icon-sm',
-  color = 'ghost',
+  size = "icon",
+  variant = "outline",
   ...props
-}: SearchToggleProps) {
+}) => {
   const { setOpenSearch, enabled } = useSearchContext();
   if (hideIfDisabled && !enabled) return null;
 
   return (
-    <button
-      type="button"
-      className={cn(
-        buttonVariants({
-          size,
-          color,
-        }),
-        props.className,
-      )}
+    <Button
+      className={props.className}
+      size={size}
+      variant={variant}
       data-search=""
       aria-label="Open Search"
       onClick={() => {
@@ -36,14 +31,14 @@ export function SearchToggle({
       }}
     >
       <Search />
-    </button>
+    </Button>
   );
-}
+};
 
 export function LargeSearchToggle({
   hideIfDisabled,
   ...props
-}: ComponentProps<'button'> & {
+}: ComponentProps<"button"> & {
   hideIfDisabled?: boolean;
 }) {
   const { enabled, hotKey, setOpenSearch } = useSearchContext();
@@ -51,14 +46,11 @@ export function LargeSearchToggle({
   if (hideIfDisabled && !enabled) return null;
 
   return (
-    <button
-      type="button"
+    <Button
       data-search-full=""
       {...props}
-      className={cn(
-        'inline-flex items-center gap-2 rounded-lg border bg-fd-secondary/50 p-1.5 ps-2 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground',
-        props.className,
-      )}
+      variant="outline"
+      className={cn("inline-flex items-center gap-2 text-sm", props.className)}
       onClick={() => {
         setOpenSearch(true);
       }}
@@ -67,11 +59,11 @@ export function LargeSearchToggle({
       {text.search}
       <div className="ms-auto inline-flex gap-0.5">
         {hotKey.map((k, i) => (
-          <kbd key={i} className="rounded-md border bg-fd-background px-1.5">
+          <kbd key={i} className="bg-fd-background rounded-md border px-1.5">
             {k.display}
           </kbd>
         ))}
       </div>
-    </button>
+    </Button>
   );
 }

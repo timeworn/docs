@@ -3,6 +3,7 @@ import type { I18nConfig } from "fumadocs-core/i18n";
 import type { LinkItemType } from "./link-item";
 import Link from "fumadocs-core/link";
 import { SiGithub } from "@icons-pack/react-simple-icons";
+import { cn } from "@/lib/utils";
 
 export interface NavOptions {
   enabled: boolean;
@@ -84,17 +85,24 @@ export function resolveLinkItems({
   return result;
 }
 
-export function renderTitleNav(
-  { title, url = "/" }: Partial<NavOptions>,
+type RenderTitleNavProps = (
+  options: Partial<NavOptions>,
   props: ComponentProps<"a">,
-) {
-  if (typeof title === "function") return title({ href: url, ...props });
+) => ReactNode;
+
+export const renderTitleNav: RenderTitleNavProps = (
+  { title, url = "/" },
+  { className, ...props },
+) => {
+  className = cn("inline-flex items-center gap-2.5 font-semibold", className);
+  if (typeof title === "function")
+    return title({ href: url, className, ...props });
   return (
-    <Link href={url} {...props}>
+    <Link href={url} className={className} {...props}>
       {title}
     </Link>
   );
-}
+};
 
 export function useLinkItems({
   githubUrl,

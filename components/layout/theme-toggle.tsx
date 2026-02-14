@@ -1,3 +1,83 @@
+// 'use client';
+// import { cva } from 'class-variance-authority';
+// import { Airplay, Moon, Sun } from 'lucide-react';
+// import { useTheme } from 'next-themes';
+// import { ComponentProps, useEffect, useState } from 'react';
+// import { cn } from '../../lib/utils';
+
+// const itemVariants = cva('size-6.5 p-1.5 text-fd-muted-foreground', {
+//   variants: {
+//     active: {
+//       true: 'bg-fd-accent text-fd-accent-foreground',
+//       false: 'text-fd-muted-foreground',
+//     },
+//   },
+// });
+
+// const full = [['light', Sun] as const, ['dark', Moon] as const, ['system', Airplay] as const];
+
+// export function ThemeToggle({
+//   className,
+//   mode = 'light-dark',
+//   ...props
+// }: ComponentProps<'div'> & {
+//   mode?: 'light-dark' | 'light-dark-system';
+// }) {
+//   const { setTheme, theme, resolvedTheme } = useTheme();
+//   const [mounted, setMounted] = useState(false);
+
+//   useEffect(() => {
+//     setMounted(true);
+//   }, []);
+
+//   const container = cn(
+//     'inline-flex items-center rounded-full border p-1 *:rounded-full',
+//     className,
+//   );
+
+//   if (mode === 'light-dark') {
+//     const value = mounted ? resolvedTheme : null;
+
+//     return (
+//       <button
+//         className={container}
+//         aria-label={`Toggle Theme`}
+//         onClick={() => setTheme(value === 'light' ? 'dark' : 'light')}
+//         data-theme-toggle=""
+//       >
+//         {full.map(([key, Icon]) => {
+//           if (key === 'system') return;
+
+//           return (
+//             <Icon
+//               key={key}
+//               fill="currentColor"
+//               className={cn(itemVariants({ active: value === key }))}
+//             />
+//           );
+//         })}
+//       </button>
+//     );
+//   }
+
+//   const value = mounted ? theme : null;
+
+//   return (
+//     <div className={container} data-theme-toggle="" {...props}>
+//       {full.map(([key, Icon]) => (
+//         <button
+//           key={key}
+//           aria-label={key}
+//           className={cn(itemVariants({ active: value === key }))}
+//           onClick={() => setTheme(key)}
+//         >
+//           <Icon className="size-full" fill="currentColor" />
+//         </button>
+//       ))}
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { useTheme } from "next-themes";
@@ -45,7 +125,7 @@ export function ThemeToggle() {
         strokeLinecap="round"
         strokeLinejoin="round"
         className={cn(
-          "absolute h-5 w-5 transition-[transform,opacity] duration-500 ease-in-out",
+          "absolute h-5 w-5 transition-all duration-500 ease-in-out",
           isDark
             ? "scale-0 rotate-90 opacity-0"
             : "scale-100 rotate-0 opacity-100",
@@ -71,7 +151,7 @@ export function ThemeToggle() {
         strokeLinecap="round"
         strokeLinejoin="round"
         className={cn(
-          "absolute h-5 w-5 transition-[transform,opacity] duration-500 ease-in-out",
+          "absolute h-5 w-5 transition-all duration-500 ease-in-out",
           isDark
             ? "scale-100 rotate-0 opacity-100"
             : "scale-0 -rotate-90 opacity-0",
@@ -81,14 +161,14 @@ export function ThemeToggle() {
         <path
           d="M19 3v4"
           className={cn(
-            "origin-center transition-[transform,opacity] delay-200 duration-300",
+            "origin-center transition-all delay-200 duration-300",
             isDark ? "scale-100 opacity-100" : "scale-0 opacity-0",
           )}
         />
         <path
           d="M21 5h-4"
           className={cn(
-            "origin-center transition-[transform,opacity] delay-300 duration-300",
+            "origin-center transition-all delay-300 duration-300",
             isDark ? "scale-100 opacity-100" : "scale-0 opacity-0",
           )}
         />
