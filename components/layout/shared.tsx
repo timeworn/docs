@@ -87,14 +87,17 @@ export function resolveLinkItems({
 
 type RenderTitleNavProps = (
   options: Partial<NavOptions>,
-  props: ComponentProps<"a">,
+  props?: ComponentProps<"a">,
 ) => ReactNode;
 
 export const renderTitleNav: RenderTitleNavProps = (
   { title, url = "/" },
-  { className, ...props },
+  { className, ...props } = {},
 ) => {
-  className = cn("inline-flex items-center gap-2.5 font-semibold", className);
+  className = cn(
+    "text-primary flex items-center space-x-2 text-xl font-bold",
+    className,
+  );
   if (typeof title === "function")
     return title({ href: url, className, ...props });
   return (

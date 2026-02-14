@@ -86,9 +86,7 @@ export const Header: FC<HomeLayoutProps> = ({
 
   return (
     <HeaderNavigationMenu transparentMode={nav.transparentMode}>
-      {renderTitleNav(nav, {
-        className: "text-primary flex items-center space-x-2 text-xl font-bold",
-      })}
+      {renderTitleNav(nav)}
       {nav.children}
       <ul className="flex flex-row items-center gap-2 px-6 max-sm:hidden">
         {navItems

@@ -2,6 +2,8 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import "./global.css";
 import { Inter } from "next/font/google";
 import Footer from "@/components/footer";
+import { HomeLayout } from "@/components/layout/home";
+import { baseOptions } from "@/lib/layout.shared";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,7 +18,8 @@ export default function Layout({ children }: LayoutProps<"/">) {
             disableTransitionOnChange: false,
           }}
         >
-          {children}
+          <HomeLayout {...baseOptions()}>{children}</HomeLayout>
+          {/* {children} */}
         </RootProvider>
         <Footer />
       </body>

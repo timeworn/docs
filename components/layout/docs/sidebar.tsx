@@ -1,11 +1,13 @@
 "use client";
 import * as Base from "../sidebar/base";
 import { cn } from "../../../lib/utils";
-import { type ComponentProps, use, useRef } from "react";
+import { type ComponentProps, useRef } from "react";
 import { cva } from "class-variance-authority";
-import { LayoutContext } from "./client";
 import { createPageTreeRenderer } from "../sidebar/page-tree";
 import { createLinkItemRenderer } from "../sidebar/link-item";
+import { buttonVariants } from "../../ui/button";
+import { SearchToggle } from "../search-toggle";
+import { Sidebar as SidebarIcon } from "lucide-react";
 import { mergeRefs } from "../../../lib/merge-refs";
 
 const itemVariants = cva(
@@ -28,33 +30,13 @@ function getItemOffset(depth: number) {
   return `calc(${2 + 3 * depth} * var(--spacing))`;
 }
 
-export function Sidebar(props: ComponentProps<typeof Base.SidebarProvider>) {
-  return <Base.SidebarProvider {...props} />;
-}
-
-export function SidebarFolder(
-  props: ComponentProps<typeof Base.SidebarFolder>,
-) {
-  return <Base.SidebarFolder {...props} />;
-}
-
-export function SidebarCollapseTrigger(
-  props: ComponentProps<typeof Base.SidebarCollapseTrigger>,
-) {
-  return <Base.SidebarCollapseTrigger {...props} />;
-}
-
-export function SidebarViewport(
-  props: ComponentProps<typeof Base.SidebarViewport>,
-) {
-  return <Base.SidebarViewport {...props} />;
-}
-
-export function SidebarTrigger(
-  props: ComponentProps<typeof Base.SidebarTrigger>,
-) {
-  return <Base.SidebarTrigger {...props} />;
-}
+export {
+  SidebarProvider as Sidebar,
+  SidebarFolder,
+  SidebarCollapseTrigger,
+  SidebarViewport,
+  SidebarTrigger,
+} from "../sidebar/base";
 
 export function SidebarContent({
   ref: refProp,
@@ -62,50 +44,65 @@ export function SidebarContent({
   children,
   ...props
 }: ComponentProps<"aside">) {
-  const { navMode } = use(LayoutContext)!;
   const ref = useRef<HTMLElement>(null);
 
   return (
     <Base.SidebarContent>
       {({ collapsed, hovered, ref: asideRef, ...rest }) => (
-        <div
-          data-sidebar-placeholder=""
-          className={cn(
-            "md:layout:[--fd-sidebar-width:268px] pointer-events-none sticky z-20 [grid-area:sidebar] *:pointer-events-auto max-md:hidden",
-            navMode === "auto"
-              ? "top-(--fd-docs-row-1) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))]"
-              : "top-(--fd-docs-row-2) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-2))]",
-          )}
-        >
-          {collapsed && (
-            <div className="absolute inset-y-0 start-0 w-4" {...rest} />
-          )}
-          <aside
-            id="nd-sidebar"
-            ref={mergeRefs(ref, refProp, asideRef)}
-            data-collapsed={collapsed}
-            data-hovered={collapsed && hovered}
-            className={cn(
-              "absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--fd-sidebar-width)",
-              navMode === "auto" && "bg-fd-card border-e",
-              collapsed && [
-                "bg-fd-card inset-y-2 w-(--fd-sidebar-width) rounded-xl border transition-transform",
-                hovered
-                  ? "translate-x-2 shadow-lg rtl:-translate-x-2"
-                  : "-translate-x-(--fd-sidebar-width) rtl:translate-x-full",
-              ],
-              ref.current &&
-                (ref.current.getAttribute("data-collapsed") === "true") !==
-                  collapsed &&
-                "transition-[width,inset-block,translate,background-color]",
-              className,
-            )}
-            {...props}
-            {...rest}
+        <>
+          <div
+            data-sidebar-placeholder=""
+            className="md:layout:[--fd-sidebar-width:268px] pointer-events-none sticky top-(--fd-docs-row-1) z-20 h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] [grid-area:sidebar] *:pointer-events-auto max-md:hidden"
           >
-            {children}
-          </aside>
-        </div>
+            {collapsed && (
+              <div className="absolute inset-y-0 start-0 w-4" {...rest} />
+            )}
+            <aside
+              id="nd-sidebar"
+              ref={mergeRefs(ref, refProp, asideRef)}
+              data-collapsed={collapsed}
+              data-hovered={collapsed && hovered}
+              className={cn(
+                "bg-fd-background! absolute inset-y-0 start-0 flex w-full flex-col items-end border-e text-sm duration-250 *:w-(--fd-sidebar-width)",
+                collapsed && [
+                  "inset-y-2 w-(--fd-sidebar-width) rounded-xl border transition-transform",
+                  hovered
+                    ? "translate-x-2 shadow-lg rtl:-translate-x-2"
+                    : "-translate-x-(--fd-sidebar-width) rtl:translate-x-full",
+                ],
+                ref.current &&
+                  (ref.current.getAttribute("data-collapsed") === "true") !==
+                    collapsed &&
+                  "transition-[width,inset-block,translate,background-color]",
+                className,
+              )}
+              {...props}
+              {...rest}
+            >
+              {children}
+            </aside>
+          </div>
+          <div
+            data-sidebar-panel=""
+            className={cn(
+              "bg-fd-muted text-fd-muted-foreground fixed start-4 top-[calc(--spacing(4)+var(--fd-docs-row-3))] z-10 flex rounded-xl border p-0.5 shadow-lg transition-opacity",
+              (!collapsed || hovered) && "pointer-events-none opacity-0",
+            )}
+          >
+            <Base.SidebarCollapseTrigger
+              className={cn(
+                buttonVariants({
+                  variant: "ghost",
+                  size: "icon-sm",
+                  className: "rounded-lg",
+                }),
+              )}
+            >
+              <SidebarIcon />
+            </Base.SidebarCollapseTrigger>
+            <SearchToggle className="rounded-lg" hideIfDisabled />
+          </div>
+        </>
       )}
     </Base.SidebarContent>
   );
@@ -250,8 +247,9 @@ export function SidebarFolderContent({
     </Base.SidebarFolderContent>
   );
 }
+
 export const SidebarPageTree = createPageTreeRenderer({
-  SidebarFolder,
+  SidebarFolder: Base.SidebarFolder,
   SidebarFolderContent,
   SidebarFolderLink,
   SidebarFolderTrigger,
@@ -260,7 +258,7 @@ export const SidebarPageTree = createPageTreeRenderer({
 });
 
 export const SidebarLinkItem = createLinkItemRenderer({
-  SidebarFolder,
+  SidebarFolder: Base.SidebarFolder,
   SidebarFolderContent,
   SidebarFolderLink,
   SidebarFolderTrigger,

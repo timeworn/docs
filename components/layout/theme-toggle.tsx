@@ -1,91 +1,14 @@
-// 'use client';
-// import { cva } from 'class-variance-authority';
-// import { Airplay, Moon, Sun } from 'lucide-react';
-// import { useTheme } from 'next-themes';
-// import { ComponentProps, useEffect, useState } from 'react';
-// import { cn } from '../../lib/utils';
-
-// const itemVariants = cva('size-6.5 p-1.5 text-fd-muted-foreground', {
-//   variants: {
-//     active: {
-//       true: 'bg-fd-accent text-fd-accent-foreground',
-//       false: 'text-fd-muted-foreground',
-//     },
-//   },
-// });
-
-// const full = [['light', Sun] as const, ['dark', Moon] as const, ['system', Airplay] as const];
-
-// export function ThemeToggle({
-//   className,
-//   mode = 'light-dark',
-//   ...props
-// }: ComponentProps<'div'> & {
-//   mode?: 'light-dark' | 'light-dark-system';
-// }) {
-//   const { setTheme, theme, resolvedTheme } = useTheme();
-//   const [mounted, setMounted] = useState(false);
-
-//   useEffect(() => {
-//     setMounted(true);
-//   }, []);
-
-//   const container = cn(
-//     'inline-flex items-center rounded-full border p-1 *:rounded-full',
-//     className,
-//   );
-
-//   if (mode === 'light-dark') {
-//     const value = mounted ? resolvedTheme : null;
-
-//     return (
-//       <button
-//         className={container}
-//         aria-label={`Toggle Theme`}
-//         onClick={() => setTheme(value === 'light' ? 'dark' : 'light')}
-//         data-theme-toggle=""
-//       >
-//         {full.map(([key, Icon]) => {
-//           if (key === 'system') return;
-
-//           return (
-//             <Icon
-//               key={key}
-//               fill="currentColor"
-//               className={cn(itemVariants({ active: value === key }))}
-//             />
-//           );
-//         })}
-//       </button>
-//     );
-//   }
-
-//   const value = mounted ? theme : null;
-
-//   return (
-//     <div className={container} data-theme-toggle="" {...props}>
-//       {full.map(([key, Icon]) => (
-//         <button
-//           key={key}
-//           aria-label={key}
-//           className={cn(itemVariants({ active: value === key }))}
-//           onClick={() => setTheme(key)}
-//         >
-//           <Icon className="size-full" fill="currentColor" />
-//         </button>
-//       ))}
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentProps, type FC } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-export function ThemeToggle() {
+export const ThemeToggle: FC<ComponentProps<typeof Button>> = ({
+  className,
+  ...props
+}) => {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -101,7 +24,13 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" disabled>
+      <Button
+        variant="outline"
+        size="icon"
+        className={className}
+        {...props}
+        disabled
+      >
         <span className="h-5 w-5" />
         <span className="sr-only">Toggle theme</span>
       </Button>
@@ -114,7 +43,8 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="relative overflow-hidden"
+      className={cn("relative overflow-hidden", className)}
+      {...props}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -177,4 +107,4 @@ export function ThemeToggle() {
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
-}
+};

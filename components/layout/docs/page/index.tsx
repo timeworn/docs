@@ -152,8 +152,8 @@ export function DocsPage({
         id="nd-page"
         data-full={full}
         className={cn(
-          "flex flex-col gap-4 px-4 py-6 [grid-area:main] *:max-w-225 md:px-6 md:pt-8 xl:px-8 xl:pt-14",
-          full && "*:max-w-321.25",
+          "mx-auto flex w-full max-w-225 flex-col gap-4 px-4 py-6 [grid-area:main] md:px-6 md:pt-8 xl:px-8 xl:pt-14",
+          full ? "max-w-300" : "xl:layout:[--fd-toc-width:268px]",
           className,
         )}
       >
@@ -167,12 +167,12 @@ export function DocsPage({
         (tocReplace ?? (
           <div
             id="nd-toc"
-            className="xl:layout:[--fd-toc-width:268px] sticky top-(--fd-docs-row-3) flex h-[calc(var(--fd-docs-height)-var(--fd-docs-row-3))] w-(--fd-toc-width) flex-col pe-4 pt-12 pb-2 [grid-area:toc] max-xl:hidden"
+            className="sticky top-(--fd-docs-row-1) flex h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] w-(--fd-toc-width) flex-col pe-4 pt-12 pb-2 [grid-area:toc] max-xl:hidden"
           >
             {tocOptions.header}
             <h3
               id="toc-title"
-              className="text-fd-muted-foreground inline-flex items-center gap-1.5 text-sm"
+              className="text-fd-muted-foreground inline-flex items-center gap-1.5 font-mono text-sm uppercase"
             >
               <Text className="size-4" />
               <I18nLabel label="toc" />

@@ -1,6 +1,12 @@
 "use client";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
+import {
+  type ComponentProps,
+  type FC,
+  type ReactNode,
+  useMemo,
+  useState,
+} from "react";
 import Link from "fumadocs-core/link";
 import { usePathname } from "fumadocs-core/framework";
 import { cn } from "../../../../lib/utils";
@@ -9,18 +15,38 @@ import { useSidebar } from "../base";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 import type { SidebarTab } from "./index";
 
-export interface SidebarTabWithProps extends SidebarTab {
+export const isTabActive = (tab: SidebarTab, pathname: string) => {
+  if (tab.urls) return tab.urls.has(normalize(pathname));
+
+  return isActive(tab.url, pathname, true);
+};
+
+interface SidebarTabIconProps {
+  children?: ReactNode;
+}
+
+export const SidebarTabIcon: FC<SidebarTabIconProps> = ({ children }) => {
+  return (
+    <div className="flex size-8 items-center justify-center rounded-md border empty:hidden">
+      <div className="size-4 shrink-0 empty:hidden">{children}</div>
+    </div>
+  );
+};
+
+export interface SidebarTabWithOptions extends SidebarTab {
   props?: ComponentProps<"a">;
 }
 
-export function SidebarTabsDropdown({
+export interface SidebarTabsDropdownProps extends ComponentProps<"button"> {
+  placeholder?: ReactNode;
+  options: SidebarTabWithOptions[];
+}
+
+export const SidebarTabsDropdown: FC<SidebarTabsDropdownProps> = ({
   options,
   placeholder,
   ...props
-}: {
-  placeholder?: ReactNode;
-  options: SidebarTabWithProps[];
-} & ComponentProps<"button">) {
+}) => {
   const [open, setOpen] = useState(false);
   const { closeOnRedirect } = useSidebar();
   const pathname = usePathname();
@@ -36,9 +62,7 @@ export function SidebarTabsDropdown({
 
   const item = selected ? (
     <>
-      <div className="size-9 shrink-0 empty:hidden md:size-5">
-        {selected.icon}
-      </div>
+      <SidebarTabIcon>{selected.icon}</SidebarTabIcon>
       <div>
         <p className="text-sm font-medium">{selected.title}</p>
         <p className="text-fd-muted-foreground text-sm empty:hidden md:hidden">
@@ -54,11 +78,11 @@ export function SidebarTabsDropdown({
     <Popover open={open} onOpenChange={setOpen}>
       {item && (
         <PopoverTrigger
-          {...props}
           className={cn(
             "bg-fd-secondary/50 text-fd-secondary-foreground hover:bg-fd-accent data-[state=open]:bg-fd-accent data-[state=open]:text-fd-accent-foreground flex items-center gap-2 rounded-lg border p-2 text-start transition-colors",
             props.className,
           )}
+          {...props}
         >
           {item}
           <ChevronsUpDown className="text-fd-muted-foreground ms-auto size-4 shrink-0" />
@@ -80,16 +104,13 @@ export function SidebarTabsDropdown({
                 item.props?.className,
               )}
             >
-              <div className="size-9 shrink-0 empty:hidden md:mb-auto md:size-5">
-                {item.icon}
-              </div>
+              <SidebarTabIcon>{item.icon}</SidebarTabIcon>
               <div>
                 <p className="text-sm leading-none font-medium">{item.title}</p>
                 <p className="text-fd-muted-foreground mt-1 text-[0.8125rem] empty:hidden">
                   {item.description}
                 </p>
               </div>
-
               <Check
                 className={cn(
                   "text-fd-primary ms-auto size-3.5 shrink-0",
@@ -102,10 +123,4 @@ export function SidebarTabsDropdown({
       </PopoverContent>
     </Popover>
   );
-}
-
-export function isTabActive(tab: SidebarTab, pathname: string) {
-  if (tab.urls) return tab.urls.has(normalize(pathname));
-
-  return isActive(tab.url, pathname, true);
-}
+};
