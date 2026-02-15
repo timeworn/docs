@@ -27,8 +27,8 @@ interface SidebarTabIconProps {
 
 export const SidebarTabIcon: FC<SidebarTabIconProps> = ({ children }) => {
   return (
-    <div className="flex size-8 items-center justify-center rounded-md border empty:hidden">
-      <div className="size-4 shrink-0 empty:hidden">{children}</div>
+    <div className="flex size-8 shrink-0 items-center justify-center rounded-md border empty:hidden">
+      <div className="size-4 empty:hidden">{children}</div>
     </div>
   );
 };
