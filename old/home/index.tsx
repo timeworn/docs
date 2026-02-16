@@ -14,7 +14,7 @@ export interface HomeLayoutProps extends BaseLayoutProps {
   >;
 }
 
-export function HomeLayout(props: HomeLayoutProps) {
+export function HomeLayout(props: HomeLayoutProps & ComponentProps<"main">) {
   const {
     nav = {},
     links,
@@ -22,20 +22,20 @@ export function HomeLayout(props: HomeLayoutProps) {
     i18n,
     themeSwitch = {},
     searchToggle,
+    ...rest
   } = props;
 
   return (
-    // <main
-    //   id="nd-home-layout"
-    //   {...rest}
-    //   className={cn(
-    //     "flex flex-1 flex-col",
-    //     // "[--fd-layout-width:1400px]",
-    //     rest.className,
-    //   )}
-    // >
-    <>
-            {nav.enabled !== false &&
+    <main
+      id="nd-home-layout"
+      {...rest}
+      className={cn(
+        "flex flex-1 flex-col",
+        // "[--fd-layout-width:1400px]",
+        rest.className,
+      )}
+    >
+      {nav.enabled !== false &&
         (nav.component ?? (
           <Header
             links={links}
@@ -47,8 +47,6 @@ export function HomeLayout(props: HomeLayoutProps) {
           />
         ))}
       {props.children}
-    </>
-
-    // </main>
+    </main>
   );
 }

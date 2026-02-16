@@ -13,6 +13,7 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
+  NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "../../ui/navigation-menu";
 import { buttonVariants } from "../../ui/button";
@@ -20,13 +21,12 @@ import type { HomeLayoutProps } from "./index";
 import { LargeSearchToggle, SearchToggle } from "../search-toggle";
 import { ThemeToggle } from "../theme-toggle";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
-import { ChevronDown, Languages, SidebarIcon } from "lucide-react";
+import { ChevronDown, Languages } from "lucide-react";
 import { useIsScrollTop } from "fumadocs-ui/utils/use-is-scroll-top";
 import {
   NavigationMenuLinkItem,
   MobileNavigationMenuLinkItem,
 } from "../navigation-links";
-import { SidebarTrigger } from "@/components/layout/sidebar/base";
 
 type HeaderNavigationMenuProps = ComponentProps<"div"> & {
   transparentMode?: NavOptions["transparentMode"];
@@ -90,12 +90,12 @@ export const Header: FC<HomeLayoutProps> = ({
       {nav.children}
       <div className="flex flex-1 flex-row items-center justify-end gap-1.5 max-lg:hidden">
         <ul className="flex flex-row items-center gap-2 px-6 max-sm:hidden">
-          {navItems
-            .filter((item) => !isSecondary(item))
-            .map((item, i) => (
-              <NavigationMenuLinkItem key={i} item={item} className="text-sm" />
-            ))}
-        </ul>
+        {navItems
+          .filter((item) => !isSecondary(item))
+          .map((item, i) => (
+            <NavigationMenuLinkItem key={i} item={item} className="text-sm" />
+          ))}
+      </ul>
         {searchToggle.enabled !== false &&
           (searchToggle.components?.lg ?? (
             <LargeSearchToggle className="w-full max-w-60" hideIfDisabled />
@@ -125,7 +125,7 @@ export const Header: FC<HomeLayoutProps> = ({
             <SearchToggle className="p-2" hideIfDisabled />
           ))}
         <NavigationMenuItem>
-          {/* <NavigationMenuTrigger
+          <NavigationMenuTrigger
             aria-label="Toggle Menu"
             className={cn(
               buttonVariants({
@@ -139,19 +139,7 @@ export const Header: FC<HomeLayoutProps> = ({
             }
           >
             <ChevronDown className="size-4 transition-transform duration-300 group-data-[state=open]:rotate-180" />
-          </NavigationMenuTrigger> */}
-          <SidebarTrigger
-            aria-label="Toggle Menu"
-            className={cn(
-              buttonVariants({
-                size: "icon",
-                variant: "ghost",
-                className: "group [&_svg]:size-5.5",
-              }),
-            )}
-          >
-            <SidebarIcon />
-          </SidebarTrigger>
+          </NavigationMenuTrigger>
           <NavigationMenuContent className="flex flex-col p-4 sm:flex-row sm:items-center sm:justify-end">
             {menuItems
               .filter((item) => !isSecondary(item))

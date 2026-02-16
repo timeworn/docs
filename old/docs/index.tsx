@@ -38,8 +38,6 @@ import {
   SidebarTabsDropdown,
   type SidebarTabWithOptions,
 } from "../sidebar/tabs/dropdown";
-import { HomeLayout } from "@/components/layout/home";
-import { baseOptions } from "@/lib/layout.shared";
 
 interface DocsViewportProps extends HTMLAttributes<HTMLDivElement> {
   menuItems: ReturnType<typeof useLinkItems>["menuItems"];
@@ -72,7 +70,6 @@ export interface DocsLayoutProps extends BaseLayoutProps {
    */
   containerProps?: LayoutBodyProps;
   usesNav?: boolean;
-  preChildren?: ReactNode;
 }
 
 interface SidebarOptions
@@ -115,7 +112,6 @@ export function DocsLayout({
   children,
   tree,
   usesNav = false,
-  preChildren,
   ...props
 }: DocsLayoutProps) {
   const { menuItems } = useLinkItems(props);
@@ -130,7 +126,7 @@ export function DocsLayout({
       return getSidebarTabs(tree);
     }
     return [];
-    // eslint-disable-next-line react-hooks/preserve-manual-memoization
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   }, [tree, sidebarTabs]);
 
   function sidebar() {
@@ -269,8 +265,9 @@ export function DocsLayout({
     <TreeContextProvider tree={tree}>
       <LayoutContextProvider navTransparentMode={transparentMode}>
         <Sidebar defaultOpenLevel={defaultOpenLevel} prefetch={prefetch}>
-          {preChildren}
           <LayoutBody usesNav={usesNav} {...props.containerProps}>
+            
+            {/* old mobile anvigation */}
             {/* {nav.enabled !== false &&
               (nav.component ?? (
                 <LayoutHeader
