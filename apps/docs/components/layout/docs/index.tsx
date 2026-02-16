@@ -240,7 +240,7 @@ export function DocsLayout({
                 </LanguageToggle>
               )}
               {themeSwitch.enabled !== false &&
-                (themeSwitch.component ?? <ThemeToggle className="p-0" />)}
+                (themeSwitch.component ?? <ThemeToggle />)}
               <SidebarTrigger
                 className={cn(
                   buttonVariants({

@@ -23,13 +23,11 @@ export default function Layout({ children }: LayoutProps<"/">) {
           <DocsLayout
             {...baseOptions()}
             tree={source.getPageTree()}
-            searchToggle={{ enabled: false }}
-            themeSwitch={{ enabled: false }}
-            githubUrl=""
             usesNav={true}
             sidebar={{
               collapsible: false,
             }}
+            searchToggle={{ enabled: false }}
             preChildren={<HomeLayout {...baseOptions()} />}
           >
             {children}
