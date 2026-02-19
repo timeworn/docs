@@ -6,6 +6,7 @@ import { HomeLayout } from "@/components/layout/home";
 import { baseOptions } from "@/lib/layout.shared";
 import { DocsLayout } from "@/components/layout/docs";
 import { source } from "@/lib/source";
+import { Analytics } from "@/components/analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           </DocsLayout>
         </RootProvider>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

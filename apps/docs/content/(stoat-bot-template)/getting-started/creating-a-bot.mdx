@@ -1,0 +1,35 @@
+---
+title: Creating a Bot
+---
+
+Now that you have the template set up, you can start creating your bot. Before you can start developing your bot, you need to create a bot on Stoat and get its token. In order to create a bot, you can follow these steps:
+
+1. Open Stoat and click on the "Settings" icon on the bottom left.
+2. Click on the "My Bots" tab.
+3. Click on the "Create Bot" button.
+4. Fill in the bot's name and click on the "Create" button.
+
+After creating the bot, you should see a page like this:
+
+![Bot Page](./images/bot-page.png)
+
+## Getting the Bot Token
+
+<Callout type="warn">
+  Never share your bot token with anyone. If someone gets access to your bot
+  token, they can control your bot.
+</Callout>
+
+On the same page where you created your bot, scroll down to the bottom. You should see a button that says "Copy Token". Click on that button to copy your bot token to your clipboard. You will need this token to start the bot.
+
+![Copy Token Button](./images/copy-token-button.png)
+
+If you ever lose your bot token or suspect that it has been leaked, you can regenerate it by clicking on the "Reset Token" button above. This will invalidate the old token and generate a new one. Make sure to update your bot's configuration with the new token if you regenerate it.
+
+## Starting the Bot
+
+Now that you have your bot token, you can start the bot. To start the bot, you need to set the `TOKEN` environment variable to your bot token. You can do this by editing the `.env` file in the root of your project. If you don't have a `.env` file, you can create one and add the following line to it:
+
+```
+TOKEN=your-bot-token-here
+```

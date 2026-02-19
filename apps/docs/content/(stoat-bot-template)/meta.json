@@ -1,0 +1,14 @@
+{
+    "title": "StoatJS Bot",
+    "description": "A template for creating a Stoat Bot using StoatJS",
+    "icon": "Bot",
+    "root": true,
+    "pages": [
+        "index",
+        "---Setup---",
+        "getting-started",
+        "---Development---",
+        "commands",
+        "events"
+    ]
+}
