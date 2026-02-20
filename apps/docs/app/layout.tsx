@@ -7,6 +7,15 @@ import { baseOptions } from "@/lib/layout.shared";
 import { DocsLayout } from "@/components/layout/docs";
 import { source } from "@/lib/source";
 import { Analytics } from "@/components/analytics";
+import { baseUrl, createMetadata } from "@/lib/metadata";
+
+export const metadata = createMetadata({
+  title: {
+    template: "%s | process.env.SITE_NAME",
+    default: "process.env.SITE_NAME",
+  },
+  metadataBase: baseUrl,
+});
 
 const inter = Inter({
   subsets: ["latin"],
