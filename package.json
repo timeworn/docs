@@ -1,14 +1,11 @@
 {
     "name": "root",
     "private": "true",
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ],
     "scripts": {
         "dev": "cd apps/docs && bun dev"
     },
-    "dependencies": {
-        "@takumi-rs/image-response": "^0.68.12"
-    }
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ]
 }

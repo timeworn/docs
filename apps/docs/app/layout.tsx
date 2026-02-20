@@ -11,8 +11,8 @@ import { baseUrl, createMetadata } from "@/lib/metadata";
 
 export const metadata = createMetadata({
   title: {
-    template: "%s | process.env.SITE_NAME",
-    default: "process.env.SITE_NAME",
+    template: `%s | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
+    default: process.env.NEXT_PUBLIC_SITE_NAME!,
   },
   metadataBase: baseUrl,
 });

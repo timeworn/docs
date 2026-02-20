@@ -9,7 +9,7 @@ export const gitConfig = {
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: "process.env.SITE_NAME",
+      title: process.env.NEXT_PUBLIC_SITE_NAME,
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };

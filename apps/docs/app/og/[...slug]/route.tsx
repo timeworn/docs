@@ -1,7 +1,8 @@
 import { getPageImage, source } from "@/lib/source";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
-import { generate as DefaultImage } from "fumadocs-ui/og";
+import DocsTemplate from "@/components/docs-template";
+import { baseUrl } from "@/lib/metadata";
 
 export const revalidate = false;
 
@@ -14,10 +15,13 @@ export async function GET(
   if (!page) notFound();
 
   return new ImageResponse(
-    <DefaultImage
+    <DocsTemplate
       title={page.data.title}
       description={page.data.description}
-      site="My App"
+      site={process.env.NEXT_PUBLIC_SITE_NAME || "My Site"}
+      icon={<></>}
+      primaryColor="var(--background)"
+      primaryTextColor="var(--foreground)"
     />,
     {
       width: 1200,
