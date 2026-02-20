@@ -19,7 +19,12 @@ import {
   SidebarTrigger,
   SidebarViewport,
 } from "./sidebar";
-import { type BaseLayoutProps, renderTitleNav, useLinkItems } from "../shared";
+import {
+  type BaseLayoutProps,
+  type NavOptions,
+  renderTitleNav,
+  useLinkItems,
+} from "../shared";
 import { LinkItem } from "../link-item";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
 import {
@@ -38,8 +43,30 @@ import {
   SidebarTabsDropdown,
   type SidebarTabWithOptions,
 } from "../sidebar/tabs/dropdown";
-import { HomeLayout } from "@/components/layout/home";
-import { baseOptions } from "@/lib/layout.shared";
+
+interface DocsProviderProps {
+  tree: PageTree.Root;
+  transparentMode?: NavOptions["transparentMode"];
+  children: ReactNode;
+  sidebar?: Pick<SidebarOptions, "defaultOpenLevel" | "prefetch">;
+}
+
+export const DocsProvider: FC<DocsProviderProps> = ({
+  tree,
+  transparentMode,
+  children,
+  sidebar: { defaultOpenLevel, prefetch } = {},
+}) => {
+  return (
+    <TreeContextProvider tree={tree}>
+      <LayoutContextProvider navTransparentMode={transparentMode}>
+        <Sidebar defaultOpenLevel={defaultOpenLevel} prefetch={prefetch}>
+          {children}
+        </Sidebar>
+      </LayoutContextProvider>
+    </TreeContextProvider>
+  );
+};
 
 interface DocsViewportProps extends HTMLAttributes<HTMLDivElement> {
   menuItems: ReturnType<typeof useLinkItems>["menuItems"];
@@ -72,7 +99,6 @@ export interface DocsLayoutProps extends BaseLayoutProps {
    */
   containerProps?: LayoutBodyProps;
   usesNav?: boolean;
-  preChildren?: ReactNode;
 }
 
 interface SidebarOptions
@@ -104,8 +130,6 @@ export function DocsLayout({
   sidebar: {
     tabs: sidebarTabs,
     enabled: sidebarEnabled = true,
-    defaultOpenLevel,
-    prefetch,
     ...sidebarProps
   } = {},
   searchToggle = {},
@@ -115,7 +139,6 @@ export function DocsLayout({
   children,
   tree,
   usesNav = false,
-  preChildren,
   ...props
 }: DocsLayoutProps) {
   const { menuItems } = useLinkItems(props);
@@ -266,12 +289,8 @@ export function DocsLayout({
   }
 
   return (
-    <TreeContextProvider tree={tree}>
-      <LayoutContextProvider navTransparentMode={transparentMode}>
-        <Sidebar defaultOpenLevel={defaultOpenLevel} prefetch={prefetch}>
-          {preChildren}
-          <LayoutBody usesNav={usesNav} {...props.containerProps}>
-            {/* {nav.enabled !== false &&
+    <LayoutBody usesNav={usesNav} {...props.containerProps}>
+      {/* {nav.enabled !== false &&
               (nav.component ?? (
                 <LayoutHeader
                   id="nd-subnav"
@@ -298,17 +317,14 @@ export function DocsLayout({
                   )}
                 </LayoutHeader>
               ))} */}
-            {sidebarEnabled && sidebar()}
-            {tabMode === "top" && tabs.length > 0 && (
-              <LayoutTabs
-                options={tabs}
-                className="bg-fd-background z-10 border-b px-6 pt-3 max-md:hidden xl:px-8"
-              />
-            )}
-            {children}
-          </LayoutBody>
-        </Sidebar>
-      </LayoutContextProvider>
-    </TreeContextProvider>
+      {sidebarEnabled && sidebar()}
+      {tabMode === "top" && tabs.length > 0 && (
+        <LayoutTabs
+          options={tabs}
+          className="bg-fd-background z-10 border-b px-6 pt-3 max-md:hidden xl:px-8"
+        />
+      )}
+      {children}
+    </LayoutBody>
   );
 }

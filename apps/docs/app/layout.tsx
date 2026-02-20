@@ -4,10 +4,11 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/footer";
 import { HomeLayout } from "@/components/layout/home";
 import { baseOptions } from "@/lib/layout.shared";
-import { DocsLayout } from "@/components/layout/docs";
+import { DocsLayout, DocsProvider } from "@/components/layout/docs";
 import { source } from "@/lib/source";
 import { Analytics } from "@/components/analytics";
 import { baseUrl, createMetadata } from "@/lib/metadata";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata = createMetadata({
   title: {
@@ -30,18 +31,11 @@ export default function Layout({ children }: LayoutProps<"/">) {
             disableTransitionOnChange: false,
           }}
         >
-          <DocsLayout
-            {...baseOptions()}
-            tree={source.getPageTree()}
-            usesNav={true}
-            sidebar={{
-              collapsible: false,
-            }}
-            searchToggle={{ enabled: false }}
-            preChildren={<HomeLayout {...baseOptions()} />}
-          >
-            {children}
-          </DocsLayout>
+          <TooltipProvider>
+            <DocsProvider {...baseOptions()} tree={source.getPageTree()}>
+              <HomeLayout {...baseOptions()}>{children}</HomeLayout>
+            </DocsProvider>
+          </TooltipProvider>
         </RootProvider>
         <Footer />
         <Analytics />
