@@ -16,7 +16,8 @@
     ],
     "scripts": {
         "build": "tsc",
-        "clean": "rm -rf dist"
+        "clean": "rm -rf dist",
+        "types:check": "tsc --noEmit"
     },
     "dependencies": {
         "tinyexec": "^1.0.2"
