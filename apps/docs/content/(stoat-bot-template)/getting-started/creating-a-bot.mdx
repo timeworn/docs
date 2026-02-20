@@ -15,16 +15,25 @@ After creating the bot, you should see a page like this:
 
 ## Getting the Bot Token
 
-<Callout type="warn">
-  Never share your bot token with anyone. If someone gets access to your bot
-  token, they can control your bot.
+<Callout type="warn" title="Important">
+  Never share your bot token with anyone. If has access to your bot token, they
+  have full control over your bot.
+</Callout>
+
+<Callout title="Regenerating the Token">
+  If you ever lose your bot token or suspect that it has been leaked, you can
+  regenerate it by clicking on the "Reset Token" button above. This will
+  invalidate the old token and generate a new one. Make sure to update your
+  bot's configuration with the new token if you regenerate it.
 </Callout>
 
 On the same page where you created your bot, scroll down to the bottom. You should see a button that says "Copy Token". Click on that button to copy your bot token to your clipboard. You will need this token to start the bot.
 
 ![Copy Token Button](./images/copy-token-button.png)
 
-If you ever lose your bot token or suspect that it has been leaked, you can regenerate it by clicking on the "Reset Token" button above. This will invalidate the old token and generate a new one. Make sure to update your bot's configuration with the new token if you regenerate it.
+## Inviting the Bot to Your Server
+
+Before we start the bot, we should invite it to a server. Click on the "Invite Bot" button on the bot's page. This will open a popup where you can select a server to invite the bot to. Select a server and click on the "Add" button.
 
 ## Starting the Bot
 
@@ -33,3 +42,33 @@ Now that you have your bot token, you can start the bot. To start the bot, you n
 ```
 TOKEN=your-bot-token-here
 ```
+
+Make sure to replace `your-bot-token-here` with the actual token you copied.
+
+After setting the `TOKEN` environment variable, you can start the bot by running the following command in your terminal:
+
+```bash tab="npm"
+npm run dev
+```
+
+```bash tab="yarn"
+yarn dev
+```
+
+```bash tab="pnpm"
+pnpm dev
+```
+
+```bash tab="bun"
+bun dev
+```
+
+To stop the bot, you can press <kbd>Ctrl</kbd> <kbd>C</kbd> in your terminal or kill it.
+
+Your bot should now be online! Try typing `!ping` in the server where you invited the bot. You should see the bot reply with "Pong!".
+
+![Bot online console](./images/bot-online-console.png)
+
+![Bot online in Server](./images/bot-online.png)
+
+![Bot ping response](../images/ping-command.png)
