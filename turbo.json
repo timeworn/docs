@@ -6,8 +6,13 @@
                 "^build"
             ],
             "outputs": [
+                ".source/**",
                 ".next/**",
-                "!.next/cache/**"
+                "!.next/cache/**",
+                "dist/**",
+                "out",
+                "build",
+                ".vercel"
             ]
         },
         "types:check": {
