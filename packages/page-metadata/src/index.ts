@@ -44,7 +44,7 @@ export interface PageMetadataPluginOptions {
    * GitHub repository in format "owner/repo"
    * Required when enableContributors is set to 'github'
    *
-   * @example 'facebook/react'
+   * @example 'timeworn/docs'
    */
   githubRepo?: string;
   filter?: (collection: string) => boolean;
@@ -59,13 +59,7 @@ const cache = new Map<
 >();
 
 const ExtendTypes = `{
-  /**
-   * Creation date of document file, obtained from Git history.
-   */
   createdAt?: Date;
-  /**
-   * GitHub contributors to this document file.
-   */
   contributors?: Array<{
     name: string;
     profileUrl: string;

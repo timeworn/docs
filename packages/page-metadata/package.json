@@ -2,7 +2,6 @@
     "name": "@timeworn/fumadocs-page-metadata",
     "version": "0.0.1",
     "description": "Fumadocs plugin for getting page metadata",
-    "license": "MIT",
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -17,7 +16,9 @@
     ],
     "scripts": {
         "build": "tsc",
-        "clean": "rm -rf dist"
+        "dev": "tsc --watch",
+        "clean": "rm -rf dist",
+        "types:check": "tsc --noEmit"
     },
     "dependencies": {
         "tinyexec": "^1.0.2"

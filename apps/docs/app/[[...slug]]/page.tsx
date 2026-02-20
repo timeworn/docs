@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import { LLMCopyButton, ViewOptions } from "@/components/ai/page-actions";
 import { gitConfig } from "@/lib/layout.shared";
+import { PageMetadata } from "@/components/page-metadata";
 
 export async function generateStaticParams() {
   return source.generateParams();
@@ -38,6 +39,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
   if (!page) notFound();
 
   const MDX = page.data.body;
+  const { lastModified, contributors, createdAt } = page.data;
 
   return (
     <DocsPage
@@ -61,6 +63,11 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
           components={getMDXComponents({
             a: createRelativeLink(source, page),
           })}
+        />
+        <PageMetadata
+          lastModified={lastModified}
+          createdAt={createdAt}
+          contributors={contributors}
         />
       </DocsBody>
     </DocsPage>
