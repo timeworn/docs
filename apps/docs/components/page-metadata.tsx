@@ -91,13 +91,13 @@ export const PageMetadata: FC<PageMetadataProps> = ({
         {createdAt && (
           <div className="flex items-center gap-2">
             <ClockIcon size={16} />
-            <Time date={createdAt} tooltip />
+            <Time format="date" date={createdAt} tooltip />
           </div>
         )}
         {lastModified && (
           <div className="flex items-center gap-2">
             <RefreshCwIcon size={16} />
-            <Time date={lastModified} tooltip />
+            <Time format="date" date={lastModified} tooltip />
           </div>
         )}
       </div>
